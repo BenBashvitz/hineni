@@ -1,0 +1,12 @@
+<div class="container">
+  <ngx-scanner-qrcode
+    class="scanner"
+    (event)="onData($event, action)"
+    (error)="onError($event)"
+    #action="scanner"
+  ></ngx-scanner-qrcode>
+
+  <button (click)="action.isStart ? action.stop() : action.start()">
+    סרוק
+  </button>
+</div>

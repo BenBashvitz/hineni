@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>הזמנה</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div style="width: 100%">
+      <% guests.forEach(guest => {%>
+      <div style="width: 100%; direction: rtl">
+        <p style="text-align: right"><%= guest.name %></p>
+        <img style="" src="<%= guest.qr %>" />
+      </div>
+      <%});%>
+    </div>
+  </body>
+</html>

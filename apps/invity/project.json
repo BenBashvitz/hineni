@@ -20,6 +20,11 @@
           {
             "glob": "**/*",
             "input": "apps/invity/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/ngx-scanner-qrcode/wasm/",
+            "output": "./assets/wasm/"
           }
         ],
         "styles": ["apps/invity/src/styles.less"],

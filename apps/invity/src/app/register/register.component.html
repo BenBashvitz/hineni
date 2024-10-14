@@ -1,0 +1,89 @@
+<div class="container">
+  <form class="form" [formGroup]="inviteForm">
+    <div class="card" [class.error]="emailFormControl.invalid">
+      <span class="title">מייל אזרחי</span>
+      <mat-form-field class="email">
+        <mat-label>מייל</mat-label>
+        <input
+          class="input"
+          type="email"
+          matInput
+          [formControl]="emailFormControl"
+          [errorStateMatcher]="matcher"
+          placeholder="Ex. ben@example.com"
+        />
+        @if (emailFormControl.hasError('email') &&
+        !emailFormControl.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+        } @if (emailFormControl.hasError('required')) {
+        <mat-error>מייל הוא שדה <strong>חובה</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <ng-container formArrayName="guests">
+      <div
+        *ngFor="let group of guestsFormArray.controls; let i = index"
+        class="card"
+        [class.error]="group.invalid"
+        [formGroup]="group"
+      >
+        <div class="title-container">
+          <mat-icon class="delete-guest" (click)="onRemoveGuest(i)"
+            >delete</mat-icon
+          >
+          <span class="title">אורח {{ i + 1 }}</span>
+        </div>
+
+        <mat-form-field class="name">
+          <mat-label>שם מלא</mat-label>
+          <input
+            class="input"
+            matInput
+            type="text"
+            formControlName="name"
+            [errorStateMatcher]="matcher"
+          />
+          @if (group.get('name')?.hasError('required')) {
+          <mat-error>שם הוא שדה <strong>חובה</strong></mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="id">
+          <mat-label>תעודת זהות</mat-label>
+          <input
+            class="input"
+            matInput
+            type="text"
+            formControlName="id"
+            [errorStateMatcher]="matcher"
+          />
+          @if (group.get('id')?.hasError('invalid') &&
+          !group.get('id')?.hasError('required')) {
+          <mat-error>Please enter a valid ID</mat-error>
+          } @if (group.get('id')?.hasError('required')) {
+          <mat-error>תעודת זהות היא <strong>חובה</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <div class="buttons">
+      <button
+        mat-flat-button
+        class="submit"
+        [disabled]="emailFormControl.invalid"
+        type="submit"
+        (click)="onSubmit()"
+      >
+        שלח
+      </button>
+      <button
+        mat-flat-button
+        class="add-guest"
+        [disabled]="guestsFormArray.controls.length > 4"
+        (click)="onAddGuest()"
+      >
+        +
+      </button>
+    </div>
+  </form>
+</div>
